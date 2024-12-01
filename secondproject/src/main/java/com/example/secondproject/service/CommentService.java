@@ -70,5 +70,6 @@ public class CommentService {
         //2. 댓글 삭제
         commentRepository.delete(target);
         //3. 삭제한 댓글 DTO 변환 및 반환
+        return CommentDto.createCommentDto(target);
     }
 }

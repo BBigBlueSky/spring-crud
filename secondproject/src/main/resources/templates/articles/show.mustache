@@ -11,7 +11,7 @@
     {{#article}}
     <tr>
         <th scope="row">{{id}}</th>
-        <td><a href="articles/{{id}}">{{title}}</a></td>
+        <td>{{title}}</td>
         <td>{{content}}</td>
     </tr>
     {{/article}}
@@ -19,4 +19,5 @@
 <a href="/articles/{{article.id}}/edit" class="btn btn-primary">edit</a>
 <a href="/articles/{{article.id}}/delete" class="btn btn-danger">delete</a>
 <a href ="/articles">Go to Article List</a>
+{{>comments/_comments}}
 {{>layouts/footer}}

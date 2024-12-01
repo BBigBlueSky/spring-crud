@@ -1,8 +1,11 @@
 package com.example.secondproject.controller;
 
+import com.example.secondproject.api.CommentApiController;
 import com.example.secondproject.dto.ArticleForm;
+import com.example.secondproject.dto.CommentDto;
 import com.example.secondproject.entity.Article;
 import com.example.secondproject.repository.ArticleRepository;
+import com.example.secondproject.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +22,8 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
-
-
+    @Autowired
+    private CommentService commentService;
     @GetMapping("/articles/new") //<a href="">ddd</a> 라는 버튼을 누르면 a태그는 지정된 url로 get 요청을 보냄. 폼 제출은 post 요청. html규칙임.
     public String newArticleForm(){
         return "articles/new";//모든 mustache 경로의 시작점은 templates인가보다.
@@ -44,7 +47,9 @@ public class ArticleController {
         log.info("id" + id);
         Article articleEntity  = articleRepository.findById(id).orElse(null);//id변수를 사용해 리퍼지토리로 데이터베이스에 접근해 엔티티를 찾아 리턴.
         //모델에 데이터 등록. 모델 변수를 뷰 페이지에서 사용하기 때문에 엔티티 내부 값을 모델에 등록해야함.
+        List<CommentDto> commentDtos = commentService.comments(id);
         model.addAttribute("article",articleEntity);
+        model.addAttribute("commentDtos",commentDtos);
         return"articles/show";
     }
 
